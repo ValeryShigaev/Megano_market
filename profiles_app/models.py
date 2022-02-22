@@ -62,6 +62,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         if self.username:
             return str(self.username)
+        elif self.first_name:
+            return " ".join([str(self.first_name), str(self.last_name)])
         else:
             return str(self.email)
 

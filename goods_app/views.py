@@ -1,6 +1,6 @@
 from typing import Dict, Callable
 
-from django.http import HttpRequest
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
@@ -26,25 +26,27 @@ class ProductDetailView(DetailView):
     model = Product
     context_object_name = 'product'
     template_name = 'goods_app/product_detail.html'
+    slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs) -> Dict:
         context = super().get_context_data(**kwargs)
-        reviews = get_reviews(context['product'])
+        reviews = get_reviews(product=context['product'])
         context['reviews_count'] = reviews.count
-        context['comments'] = context_pagination(self.request, reviews)
+        context['comments'] = context_pagination(request=self.request, queryset=reviews)
         context['form'] = ReviewForm()
         return context
 
-    def post(self, request: HttpRequest, pk: int) -> Callable:
+    @login_required
+    def post(self, request, slug: str) -> Callable:
         form = ReviewForm(request.POST)
         if form.is_valid():
             form.save()
             calculate_product_rating(product=self.get_object())
-            return redirect(reverse('goods-polls:product-detail', kwargs={'pk': pk}))
+            return redirect(reverse('goods-polls:product-detail', kwargs={'slug': slug}))
         context = dict()
-        context['form'] = form
+        context['form'] = ReviewForm()
         context['product'] = self.get_object()
         reviews = get_reviews(context['product'])
         context['reviews_count'] = reviews.count
-        context['comments'] = context_pagination(self.request, reviews)
+        context['comments'] = context_pagination(request=request, queryset=reviews)
         return render(request, 'goods_app/product_detail.html', context=context)

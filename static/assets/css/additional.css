@@ -324,3 +324,8 @@ margin-top: 0;}
 .reviews-pagination li:after{
   display: none !important;
 }
+
+span ul li:after {
+    width: 0 !important;
+    height: 0 !important;
+}

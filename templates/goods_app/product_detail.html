@@ -82,7 +82,7 @@
             </div>
           </div>
           <div class="Tabs Tabs_default">
-            <div class="Tabs-links"><a class="Tabs-link" href="#description"><span>Описание</span></a><a class="Tabs-link" href="#sellers"><span>Продавцы</span></a><a class="Tabs-link" href="#addit"><span>AdditionaL Info</span></a><a class="Tabs-link Tabs-link_ACTIVE" href="#reviews"><span>Reviews (3)</span></a>
+            <div class="Tabs-links"><a class="Tabs-link" href="#description"><span>Описание</span></a><a class="Tabs-link" href="#sellers"><span>Продавцы</span></a><a class="Tabs-link" href="#addit"><span>AdditionaL Info</span></a><a class="Tabs-link Tabs-link_ACTIVE" href="#reviews"><span>Reviews ({{ reviews_count|default_if_none:"0" }})</span></a>
             </div>
             <div class="Tabs-wrap">
               <div class="Tabs-block" id="description" style="display: none;">
@@ -214,6 +214,7 @@
                 </div>
               </div>
               <div class="Tabs-block" id="reviews" style="">
+                {% if reviews_count %}
                 <header class="Section-header">
                   <h3 class="Section-title">{{ reviews_count }} Review(s)
                   </h3>
@@ -222,8 +223,13 @@
                   {% for comment in comments %}
                   <div class="Comment">
                     <div class="Comment-column Comment-column_pict">
+                     {% if comment.user.avatar %}
+                      <div class="Comment-avatar" style="background: url('{{ MEDIA_ROOT }}/uploads/avatars/{{ comment.user.avatar }}') center center no-repeat;">
+                        </div>
+                      {% else %}
                       <div class="Comment-avatar">
                       </div>
+                     {% endif %}
                     </div>
                     <div class="Comment-column">
                       <header class="Comment-header">
@@ -237,7 +243,8 @@
                     </div>
                   </div>
                   {% endfor %}
-            {% if comments.paginator.num_pages > 1 %}
+                {% endif %}
+                {% if comments.paginator.num_pages > 1 %}
                 <ul class="reviews-pagination">
                     {% if comments.has_previous %}
                     <li><a href="?page=1#reviews_list">&laquo;&laquo; </a></li>
@@ -256,6 +263,7 @@
                   </h3>
                 </header>
                 <div class="Tabs-addCommentreview-form ">
+                  {% if request.user.is_authenticated %}
                   <form class="form" method="post">
                       {% csrf_token %}
                       <input type="hidden" name="user" value="{{ request.user.id }}">
@@ -269,8 +277,8 @@
                     <div class="form-group">
                       <div class="row" style="margin-left: 0;">
                         <div class="row-block">
-                          <input class="form-input" id="author" name="author" type="text" placeholder="Name">
-                            {{ form.errors.author }}
+                          <input class="form-input" id="author" name="author" value="{{ request.user }}"  type="text" placeholder="Name">
+                          <span class="formerror" style="text-align: right;">{{ form.errors.author }}</span>
                         </div>
                         <div class="row-block">
                           <input class="form-input" id="email" name="email" type="text" readonly value="{{ request.user.email }}" placeholder="Email">
@@ -289,10 +297,14 @@
                               <input id="star2" name="rating" value="2" type="radio"><label for="star2">☆</label>
                               <input id="star1" name="rating" value="1" type="radio"><label for="star1">☆</label>
                           </div>
-                          {{ form.errors.rating }}
                       </div>
                     </div>
+                    <span class="formerror" style="text-align: right;">{{ form.errors.rating }}</span>
                   </form>
+                  {% else %}
+                  <h3 class="custom_align-center">{% blocktrans %}You need to authorized for adding reviews.{% endblocktrans %} {% trans 'Please' %} <a
+                          href="{% url 'profiles-polls:login' %}">{% trans 'sign in' %}</a> or <a href="{% url 'profiles-polls:register' %}">{% trans 'register' %}</a></h3>
+                  {% endif %}
                 </div>
               </div>
             </div>

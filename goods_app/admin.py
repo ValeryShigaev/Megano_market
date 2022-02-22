@@ -10,8 +10,14 @@ class ProductCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
+class CommensInline(admin.StackedInline):
+    model = ProductComment
+    fields = ['author', 'content', ]
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = (CommensInline,)
     list_display = ('name', 'code', 'category', )
     list_filter = ('name', 'code', 'category')
     search_fields = ('name', 'code', 'category')
