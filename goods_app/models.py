@@ -33,6 +33,8 @@ class Product(models.Model):
     description = models.TextField(max_length=255, null=True, verbose_name='product_description')
     average_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, verbose_name='average_price')
     comments = models.IntegerField(null=True, verbose_name='amount_of_comments')
+    rating = models.FloatField(null=True, default=0, verbose_name='rating')
+
 
     def __str__(self):
         return self.name
@@ -51,3 +53,27 @@ class ProductComment(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     content = models.TextField(max_length=255, null=True)
     added = models.DateTimeField(auto_now_add=True, null=True)
+
+
+class SpecificationsNames(models.Model):
+    """ Все возможные характеристики """
+
+    name = models.CharField(max_length=32, null=False)
+
+
+    def __str__(self):
+        return self.name
+
+
+class Specifications(models.Model):
+    """ Модель Характеристики товара """
+
+    value = models.CharField(max_length=32, null=False)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True, related_name='specifications')
+    current_specification = models.ForeignKey(SpecificationsNames, on_delete=models.CASCADE, blank=True, null=True,
+                                              related_name='specifications')
+
+    def __str__(self):
+        return self.value
+
+
