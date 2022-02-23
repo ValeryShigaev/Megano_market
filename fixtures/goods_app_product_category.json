@@ -1,0 +1,83 @@
+[
+  {
+    "model": "goods_app.productcategory",
+    "pk": 1,
+    "fields": {
+      "name": "test_category_1",
+      "slug": "test_category_slug_1",
+      "description": "some test text"
+    }
+  },
+  {
+    "model": "goods_app.productcategory",
+    "pk": 2,
+    "fields": {
+      "name": "test_category_2",
+      "slug": "test_category_slug_2",
+      "description": "some test text"
+    }
+  },
+  {
+    "model": "goods_app.productcategory",
+    "pk": 3,
+    "fields": {
+      "name": "test_category_3",
+      "slug": "test_category_slug_3",
+      "description": "some test text"
+    }
+  },
+  {
+    "model": "goods_app.productcategory",
+    "pk": 4,
+    "fields": {
+      "name": "test_category_4",
+      "slug": "test_category_slug_4",
+      "description": "some test text"
+    }
+  },
+  {
+    "model": "goods_app.productcategory",
+    "pk": 5,
+    "fields": {
+      "name": "test_category_5",
+      "slug": "test_category_slug_5",
+      "description": "some test text"
+    }
+  },
+  {
+    "model": "goods_app.productcategory",
+    "pk": 6,
+    "fields": {
+      "name": "test_category_6",
+      "slug": "test_category_slug_6",
+      "description": "some test text"
+    }
+  },
+  {
+    "model": "goods_app.productcategory",
+    "pk": 7,
+    "fields": {
+      "name": "test_category_7",
+      "slug": "test_category_slug_7",
+      "description": "some test text"
+    }
+  },
+  {
+    "model": "goods_app.productcategory",
+    "pk": 8,
+    "fields": {
+      "name": "test_category_8",
+      "slug": "test_category_slug_8",
+      "description": "some test text"
+    }
+  },
+  {
+    "model": "goods_app.productcategory",
+    "pk": 9,
+    "fields": {
+      "name": "test_category_9",
+      "slug": "test_category_slug_9",
+      "description": "some test text"
+    }
+  }
+]
