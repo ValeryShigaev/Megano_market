@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    env_file:
+      - .env
+    ports:
+      - $DB_PORT:5432
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=$DB_NAME
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+    networks:
+      - budget_net
+  web:
+    build: .
+    env_file:
+      - .env
+    command:  >
+      sh -c "python manage.py makemigrations --no-input && 
+             python manage.py migrate --no-input && 
+             python manage.py collectstatic --no-input &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - budget_net
+
+networks:
+  budget_net:
+    name: budget_net
+    driver: bridge

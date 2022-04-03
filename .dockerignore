@@ -1,0 +1,13 @@
+/venv/
+/.idea
+
+# Исключаем файлы миграций
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
+# Исключаем файлы базы данных
+db.sqlite3
+/data/
+
+/static/

@@ -137,3 +137,6 @@ dmypy.json
 **/migrations/**
 !**/migrations
 !**/migrations/__init__.py
+
+# Исключаем файлы базы данных Postgres
+/data/
