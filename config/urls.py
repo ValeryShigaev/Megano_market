@@ -34,5 +34,5 @@ urlpatterns = [
     path('orders/', include('orders_app.urls', namespace='orders-polls')),
     path('stores/', include('stores_app.urls', namespace='stores-polls')),
     path('discounts/', include('discounts_app.urls', namespace='discounts-polls')),
-    path('__debug__/', include('debug_toolbar.urls')),
+    # path('__debug__/', include('debug_toolbar.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
