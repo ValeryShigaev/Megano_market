@@ -14,13 +14,14 @@ from pathlib import Path
 
 import django.middleware.locale
 from braintree import Configuration, Environment
-import environ
+from environs import Env
 
 
-env = environ.Env()
+env = Env()
+env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -29,9 +30,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=True)
-
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS',default=[])
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.vk',
 
     'mptt',
- ] + env.list('INSTALLED_APPS', default=[])
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,7 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-] + env.list('MIDDLEWARE', default=[])
+]
 
 ROOT_URLCONF = 'config.urls'
 

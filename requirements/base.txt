@@ -10,3 +10,4 @@ django-taggit==2.1.0
 djangorestframework==3.13.1
 psycopg2~=2.8
 braintree==4.14.0
+environs

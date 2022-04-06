@@ -1,6 +1,6 @@
 #!/bin/bash
-python manage.py makemigrations --no-input
-python manage.py migrate  --no-input
+python manage.py makemigrations
+python manage.py migrate
 python manage.py new_site_name
 
 python manage.py loaddata fixtures/goods_app.product_category.json
