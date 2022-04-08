@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -214,7 +214,6 @@ CART_SESSION_ID = 'cart'
 
 SESSION_ENGINE = 'config.session_backend'
 
-
 BRAINTREE_MERCHANT_ID = env('BRAINTREE_MERCHANT_ID')  # ID продавца.
 BRAINTREE_PUBLIC_KEY = env('BRAINTREE_PUBLIC_KEY')   # Публичный ключ.
 BRAINTREE_PRIVATE_KEY = env('BRAINTREE_PRIVATE_KEY')   # Секретный ключ.
@@ -235,3 +234,7 @@ SUCCESS_DEL_GROUP_DISCOUNT = 116
 SUCCESS_DEL_PRODUCT_DISCOUNT = 115
 SUCCESS_DEL_STORE = 110
 SUCCESS_DEL_PRODUCT = 100
+
+# Resolution images for icons
+MAX_RESOLUTION = (100, 100)
+MIN_RESOLUTION = (30, 30)
